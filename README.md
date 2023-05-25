@@ -1,1 +1,1 @@
-vscode edits
+making a tool for fastq read quality trimming
