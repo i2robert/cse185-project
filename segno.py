@@ -1,5 +1,8 @@
 import argparse
 import sys
+import os
+import fastq as fq
+from helper import *
 
 version = "0.0.1"
 
@@ -32,7 +35,32 @@ def main():
     
     args = parser.parse_args()
 
-    
+    # Set up output file
+    outfile = sys.stdout if args.out == None else open(args.out, 'w')
+
+    # Load fastq file
+    if not os.path.exists(args.fastq):
+        ERROR(f"{args.fastq} does not exist")
+    else: fastq_file = fq.read(args.fastq)
+
+    fastq_list = list(fastq_file)
+    fastq_file.close()
+
+    trimmed_fastq_list = []
+    #print(fastqlist[0].getHead())
+
+    for fo in fastq_list:
+        head = fo.getHead()
+        seq = fo.getSeq()
+        qual = fo.getQual()
+
+        trimmed_fo = fq.fastq_object(head, seq[:25], qual[:25])
+        trimmed_fastq_list.append(trimmed_fo)
+
+    for fo in trimmed_fastq_list[:-1]:
+        outfile.write(FormatFastqObject(fo))
+    outfile.write(FormatFastqObject(trimmed_fastq_list[-1]).strip('\n'))
+    outfile.close()
 
 if __name__ == "__main__":
     main()
