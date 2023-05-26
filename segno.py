@@ -47,15 +47,12 @@ def main():
     fastq_file.close()
 
     trimmed_fastq_list = []
-    #print(fastqlist[0].getHead())
 
     for fo in fastq_list:
-        head = fo.getHead()
-        seq = fo.getSeq()
-        qual = fo.getQual()
+        trimmed_fo = TrimRead(fo, args.no_fiveprime, args.quality_threshold, args.trunc_n)
 
-        trimmed_fo = fq.fastq_object(head, seq[:25], qual[:25])
-        trimmed_fastq_list.append(trimmed_fo)
+        if len(trimmed_fo) > args.length_threshold:
+            trimmed_fastq_list.append(trimmed_fo)
 
     for fo in trimmed_fastq_list[:-1]:
         outfile.write(FormatFastqObject(fo))
