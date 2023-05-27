@@ -1,6 +1,6 @@
-# segno
+# segno (CSE 185 project)
 
-Segno is a fastq read trimming tool similar to sickle or scythe that filters and trims FASTQ reads based on their quality scores.
+`segno` is a fastq read trimming tool similar to `sickle` or `scythe` that filters and trims FASTQ reads based on their quality scores.
 
 # Dependencies
 
