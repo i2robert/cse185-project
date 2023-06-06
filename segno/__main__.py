@@ -41,26 +41,23 @@ def main():
     # Load fastq file
     if not os.path.exists(args.fastq):
         ERROR(f"{args.fastq} does not exist")
-    else: fastq_file = fq.read(args.fastq)
+    else: 
+        f = open(args.fastq, 'r')
 
-    fastq_list = list(fastq_file)
-    fastq_file.close()
+        header = f.readline().strip('\n')
+        while header != "":
+            seq = f.readline().strip('\n')
+            spacer = f.readline().strip('\n')
+            qual = f.readline().strip('\n')
 
-    trimmed_fastq_list = []
+            fo = fq.fastq_object(header, seq, qual)
+            trimmed_fo = TrimRead(fo, args.no_fiveprime, args.quality_threshold, args.trunc_n)
 
-    for fo in fastq_list:
-        trimmed_fo = TrimRead(fo, args.no_fiveprime, args.quality_threshold, args.trunc_n)
+            if len(trimmed_fo) > args.length_threshold:
+                outfile.write(FormatFastqObject(trimmed_fo))
 
-        if len(trimmed_fo) > args.length_threshold:
-            trimmed_fastq_list.append(trimmed_fo)
+            header = f.readline().strip('\n')
 
-    for fo in trimmed_fastq_list[:-1]:
-        outfile.write(FormatFastqObject(fo))
-
-    if args.out != None:
-        outfile.write(FormatFastqObject(trimmed_fastq_list[-1]).strip('\n'))
-    else:
-        outfile.write(FormatFastqObject(trimmed_fastq_list[-1]))
     outfile.close()
 
 if __name__ == "__main__":
