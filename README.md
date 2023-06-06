@@ -11,18 +11,34 @@ pip install fastq
 pip install miniFasta
 ```
 
-# Basic Usage
+# Installation
 
-For now, the tool must be run as a python script. The basic usage of `segno` is:
+In order to install `segno`, first make sure that the dependencies listed above have been installed. Once these libraries have been installed, `segno` can be installed with the command:
 
 ```
-python segno.py [options] input.fq
+python setup.py install
+```
+
+Additionally, the tool can be installed locally if root access is unavailable:
+
+```
+python setup.py install --user
+```
+
+If the tool was installed correctly, then running `python segno --version` should print the current version of the tool.
+
+# Basic Usage
+
+Once the tool has been installed, it can be run as a python command from the command line. The basic usage of `segno` is:
+
+```
+python segno [options] input.fq
 ```
 
 To run `segno` on the sample test example (using files in this repo):
 
 ```
-python segno.py sample_fastq.fq
+python segno sample_fastq.fq
 ```
 
 This should produce the output below:
@@ -40,7 +56,7 @@ HGHIHHHGHECHHHHHHHGGHHHH
 
 # segno Options
 
-The only require input to the script is a FASTQ file. Users may use the options below:
+The only required input to the script is a FASTQ file. Users may use the options below:
 
 * `-o FILE`, `--out FILE` : Write output to file. Default: `stdout`
 * `-q QUALITY_SCORE`, `--quality-threshold QUALITY_SCORE`: Threshold for trimming basedon average quality for a window. Default 20.
