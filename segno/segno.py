@@ -56,7 +56,11 @@ def main():
 
     for fo in trimmed_fastq_list[:-1]:
         outfile.write(FormatFastqObject(fo))
-    outfile.write(FormatFastqObject(trimmed_fastq_list[-1]).strip('\n'))
+
+    if args.out != None:
+        outfile.write(FormatFastqObject(trimmed_fastq_list[-1]).strip('\n'))
+    else:
+        outfile.write(FormatFastqObject(trimmed_fastq_list[-1]))
     outfile.close()
 
 if __name__ == "__main__":
