@@ -67,3 +67,9 @@ The only required input to the script is a FASTQ file. Users may use the options
 # File Format
 
 The input file must be in FASTQ format. If the output file option is specified, then the output file will also be in FASTQ format.
+
+# Contributions
+
+This tool was developed by Isaac Roberts, based on the functionality of the tool `sickle`.
+
+Code for the argument parser and the command line tool setup was heavily inspired by Melissa Gymrek's demo project: `https://github.com/gymreklab/cse185-demo-project/`.
