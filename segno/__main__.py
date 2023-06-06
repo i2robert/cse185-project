@@ -3,8 +3,7 @@ import sys
 import os
 import fastq as fq
 from helper import *
-
-version = "0.0.1"
+from segno import __version__
 
 def main():
     parser = argparse.ArgumentParser(
@@ -31,7 +30,7 @@ def main():
     parser.add_argument("-n", "--trunc-n", help="Truncate read at first instance of N.", \
         action='store_true')
     parser.add_argument("--version", help="Print the version and quit.", \
-        action='version', version = f"{version}")
+        action='version', version = f"{__version__}")
     
     args = parser.parse_args()
 
