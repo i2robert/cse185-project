@@ -22,6 +22,10 @@ setup(
     description='a fastq file quality-based trimmer',
     author='Isaac Roberts',
     author_email='i2robert@ucsd.edu',
+    install_requires=[
+        'fastq',
+        'miniFasta'
+    ],
     packages=find_packages(include=['segno']),
     entry_points={
         "console_scripts": [
