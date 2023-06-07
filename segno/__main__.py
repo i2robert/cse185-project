@@ -64,7 +64,7 @@ def main():
             header = f.readline().strip('\n')
 
     sys.stdout.write(f'\nnumber of reads: {num_read}\nkept: {num_kept}\n'+
-                     f'trimmed: {num_read - num_kept}\n\n')
+                     f'discarded: {num_read - num_kept}\n\n')
     outfile.close()
 
 if __name__ == "__main__":
