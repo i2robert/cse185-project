@@ -37,6 +37,10 @@ def main():
     # Set up output file
     outfile = sys.stdout if args.out == None else open(args.out, 'w')
 
+    #track trims
+    num_read = 0
+    num_kept = 0
+
     # Load fastq file
     if not os.path.exists(args.fastq):
         ERROR(f"{args.fastq} does not exist")
@@ -49,14 +53,18 @@ def main():
             spacer = f.readline().strip('\n')
             qual = f.readline().strip('\n')
 
+            num_read += 1
             fo = fq.fastq_object(header, seq, qual)
             trimmed_fo = TrimRead(fo, args.no_fiveprime, args.quality_threshold, args.trunc_n)
 
             if len(trimmed_fo) > args.length_threshold:
+                num_kept += 1
                 outfile.write(FormatFastqObject(trimmed_fo))
 
             header = f.readline().strip('\n')
 
+    sys.stdout.write(f'\nnumber of reads: {num_read}\nkept: {num_kept}\n'+
+                     f'trimmed: {num_read - num_kept}\n\n')
     outfile.close()
 
 if __name__ == "__main__":
